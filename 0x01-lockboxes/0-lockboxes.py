@@ -1,5 +1,14 @@
 #!/usr/bin/python3
 def canUnlockAll(boxes):
+    """
+    Determines if all the boxes can be opened.
+
+    Parameters:
+    boxes (list of lists): List where each index contains keys to other boxes.
+
+    Returns:
+    bool: True if all boxes can be opened, False otherwise.
+    """
     n = len(boxes)
     opened = set()
     stack = [0]  # Start with the first box
