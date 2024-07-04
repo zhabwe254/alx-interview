@@ -14,13 +14,13 @@ def canUnlockAll(boxes):
     bool: True if all boxes can be opened, False otherwise.
     """
     n = len(boxes)
-    unlocked = set([0])  # Start with box 0 unlocked
-    keys = set(boxes[0])  # Keys from the first box
+    unlocked = [False] * n
+    unlocked[0] = True
+    keys = boxes[0]
 
-    while keys:
-        new_key = keys.pop()
-        if new_key < n and new_key not in unlocked:
-            unlocked.add(new_key)
-            keys.update(boxes[new_key])
+    for key in keys:
+        if key < n and not unlocked[key]:
+            unlocked[key] = True
+            keys.extend(boxes[key])
 
-    return len(unlocked) == n
+    return all(unlocked)
