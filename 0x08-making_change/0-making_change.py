@@ -3,7 +3,6 @@
 Module for making change problem
 """
 
-
 def makeChange(coins, total):
     """
     Determines the fewest number of coins needed to meet a given amount total.
@@ -20,16 +19,14 @@ def makeChange(coins, total):
     if total <= 0:
         return 0
 
-    # Initialize dp array with total + 1 as maximum value
-    dp = [total + 1] * (total + 1)
-    dp[0] = 0
+    # Sort coins in descending order for efficiency
+    coins.sort(reverse=True)
 
-    # Iterate through all amounts from 1 to total
-    for amount in range(1, total + 1):
-        # Try each coin
-        for coin in coins:
-            if coin <= amount:
-                dp[amount] = min(dp[amount], dp[amount - coin] + 1)
+    coin_count = 0
+    for coin in coins:
+        if total <= 0:
+            break
+        coin_count += total // coin
+        total %= coin
 
-    # If dp[total] is still total + 1, it means we couldn't make the change
-    return dp[total] if dp[total] != total + 1 else -1
+    return coin_count if total == 0 else -1
