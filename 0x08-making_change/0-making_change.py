@@ -1,30 +1,35 @@
 #!/usr/bin/python3
+"""
+Module for making change problem
+"""
+
+
 def makeChange(coins, total):
     """
-    Determine the fewest number of coins needed to meet the given total.
-    
+    Determines the fewest number of coins needed to meet a given amount total.
+
     Args:
-        coins (list): List of coin denominations.
-        total (int): The total amount to be met.
-        
+        coins (list): A list of coin values.
+        total (int): The target total amount.
+
     Returns:
-        int: Fewest number of coins needed to meet the total.
-             If the total cannot be met by any number of coins, return -1.
+        int: The fewest number of coins needed to meet the total.
+             Returns 0 if total is 0 or less.
+             Returns -1 if total cannot be met by any number of coins.
     """
     if total <= 0:
         return 0
-    
-    # Create a list to store the minimum number of coins needed for each value
-    dp = [float('inf')] * (total + 1)
-    
-    # No coins are needed to make 0 total
+
+    # Initialize dp array with total + 1 as maximum value
+    dp = [total + 1] * (total + 1)
     dp[0] = 0
-    
-    # Iterate through each coin and update the dp array
-    for coin in coins:
-        for amount in range(coin, total + 1):
-            # Update dp[amount] if using the current coin reduces the number of coins
-            dp[amount] = min(dp[amount], dp[amount - coin] + 1)
-    
-    # If dp[total] is still infinity, it means we cannot make the total
-    return dp[total] if dp[total] != float('inf') else -1
+
+    # Iterate through all amounts from 1 to total
+    for amount in range(1, total + 1):
+        # Try each coin
+        for coin in coins:
+            if coin <= amount:
+                dp[amount] = min(dp[amount], dp[amount - coin] + 1)
+
+    # If dp[total] is still total + 1, it means we couldn't make the change
+    return dp[total] if dp[total] != total + 1 else -1
