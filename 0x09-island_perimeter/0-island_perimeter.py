@@ -4,7 +4,6 @@ This module contains a function to calculate the perimeter
 of an island represented in a grid.
 """
 
-
 def island_perimeter(grid):
     """
     Calculate the perimeter of the island described in grid.
@@ -15,9 +14,18 @@ def island_perimeter(grid):
     Returns:
         int: The perimeter of the island.
     """
-    perimeter = 0
+    if not grid or not isinstance(grid, list) or not all(isinstance(row, list) for row in grid):
+        raise ValueError("Invalid grid format")
+    
     rows = len(grid)
-    cols = len(grid[0]) if rows > 0 else 0
+    if rows == 0:
+        return 0
+
+    cols = len(grid[0])
+    if cols == 0:
+        return 0
+
+    perimeter = 0
 
     for i in range(rows):
         for j in range(cols):
