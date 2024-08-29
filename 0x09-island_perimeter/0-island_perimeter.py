@@ -3,6 +3,7 @@
 Module for calculating the perimeter of an island in a grid.
 """
 
+
 def island_perimeter(grid):
     """
     Calculate the perimeter of the island described in grid.
@@ -13,18 +14,10 @@ def island_perimeter(grid):
 
     Returns:
     int: The perimeter of the island.
-
-    The function assumes:
-    - The grid is rectangular, with width and height not exceeding 100.
-    - The grid is completely surrounded by water.
-    - There is only one island (or nothing).
-    - The island doesn't have "lakes".
     """
-    if not grid:
-        return 0
-
     perimeter = 0
-    rows, cols = len(grid), len(grid[0])
+    rows = len(grid)
+    cols = len(grid[0]) if rows else 0
 
     for i in range(rows):
         for j in range(cols):
