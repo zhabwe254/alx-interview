@@ -3,18 +3,6 @@
 Prime Game Module
 """
 
-def sieve_of_eratosthenes(n):
-    """
-    Generate prime numbers up to n using the Sieve of Eratosthenes algorithm.
-    """
-    primes = [True] * (n + 1)
-    primes[0] = primes[1] = False
-    for i in range(2, int(n**0.5) + 1):
-        if primes[i]:
-            for j in range(i*i, n + 1, i):
-                primes[j] = False
-    return primes
-
 def isWinner(x, nums):
     """
     Determine the winner of the Prime Game.
@@ -26,8 +14,14 @@ def isWinner(x, nums):
     if not nums or x < 1:
         return None
     
-    max_n = max(nums)
-    primes = sieve_of_eratosthenes(max_n)
+    max_num = max(nums)
+    primes = [True] * (max_num + 1)
+    primes[0] = primes[1] = False
+    
+    for i in range(2, int(max_num**0.5) + 1):
+        if primes[i]:
+            for j in range(i*i, max_num + 1, i):
+                primes[j] = False
     
     maria_wins = 0
     ben_wins = 0
